@@ -7,7 +7,7 @@ import uuid
 app = FastAPI()
 
 # Load model once
-model = WhisperModel("base", compute_type="int8")
+model = WhisperModel("tiny", compute_type="int8")
 
 # Store jobs
 jobs = {}
