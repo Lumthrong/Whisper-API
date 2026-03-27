@@ -32,6 +32,14 @@ jobs = {}
 def home():
     return {"status": "ok"}
 
+@app.get("/health")
+def health():
+    global model
+    return {
+        "status": "ok",
+        "model_loaded": model is not None
+    }
+
 
 @app.post("/transcribe")
 async def transcribe(file: UploadFile = File(...)):
@@ -112,3 +120,11 @@ def get_status(job_id: str):
         return {"status": "failed"}
 
     return job
+@app.on_event("startup")
+def load_model_on_startup():
+    try:
+        print("🔥 Preloading Whisper model...")
+        get_model()
+        print("✅ Whisper model loaded")
+    except Exception as e:
+        print("⚠️ Model preload failed:", e)
