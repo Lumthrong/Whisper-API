@@ -122,9 +122,5 @@ def get_status(job_id: str):
     return job
 @app.on_event("startup")
 def load_model_on_startup():
-    try:
-        print("🔥 Preloading Whisper model...")
-        get_model()
-        print("✅ Whisper model loaded")
-    except Exception as e:
-        print("⚠️ Model preload failed:", e)
+    print("🔥 Preloading Whisper model...")
+    get_model()
