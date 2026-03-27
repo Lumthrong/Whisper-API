@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
 import tempfile
 import os
+os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
 import uuid
 import threading
 
