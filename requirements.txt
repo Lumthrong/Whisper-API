@@ -2,3 +2,6 @@ fastapi
 uvicorn
 faster-whisper
 python-multipart
+ctranslate2
+onnxruntime
+av
