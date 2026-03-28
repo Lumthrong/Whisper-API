@@ -4,22 +4,25 @@ ARG CACHE_BUST=1
 
 WORKDIR /app
 
-# 🔥 Install system dependencies (IMPORTANT)
+# 🔥 System dependencies
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     git \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# 🔥 Fix HuggingFace cache
+# 🔥 HuggingFace cache fix
 ENV HF_HOME=/tmp/huggingface
 
-# 🔥 Install torch FIRST (CRITICAL FIX)
+# 🔥 Upgrade pip tools (IMPORTANT)
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# 🔥 Install torch FIRST (prebuilt CPU wheel)
 RUN pip install --no-cache-dir torch==2.0.1 --index-url https://download.pytorch.org/whl/cpu
 
-# 🔥 Then install rest
+# 🔥 Install requirements using prebuilt binaries ONLY
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --prefer-binary -r requirements.txt
 
 # Copy app
 COPY . .
