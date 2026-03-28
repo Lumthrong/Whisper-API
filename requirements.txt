@@ -1,7 +1,4 @@
-fastapi
-uvicorn
-faster-whisper
-python-multipart
-ctranslate2
-onnxruntime
-av
+fastapi==0.95.2
+uvicorn==0.22.0
+python-multipart==0.0.6
+openai-whisper==20231117
